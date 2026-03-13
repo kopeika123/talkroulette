@@ -43,7 +43,7 @@ export const getVkRedirectUrl = () => {
     return normalizeBaseUrl(process.env.NEXT_PUBLIC_VK_REDIRECT_URL);
   }
 
-  return `${getAuthBaseUrl()}/`;
+  return `${getAuthBaseUrl()}/auth/vk/callback`;
 };
 
 export const getYandexRedirectUrl = () => {

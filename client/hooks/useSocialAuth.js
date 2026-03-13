@@ -6,21 +6,19 @@ import {
   clearAuthSession,
   clearVkAuthChallenge,
   createRandomString,
-  getApiBaseUrl,
   getAuthBaseUrl,
   getVkRedirectUrl,
   getYandexRedirectUrl,
   readAuthSession,
   saveAuthSession,
+  saveVkAuthChallenge,
 } from "../lib/auth/socialAuthStorage";
+import {
+  buildUserName,
+  persistSocialSession,
+} from "../lib/auth/socialAuthApi";
 
 const YANDEX_MESSAGE_SOURCE = "talkroulette-yandex-auth";
-
-const buildUserName = (firstName, lastName, fallback) => {
-  const fullName = [firstName, lastName].filter(Boolean).join(" ").trim();
-
-  return fullName || fallback;
-};
 
 const extractYandexAccessToken = (payload) => {
   if (!payload) {
@@ -104,24 +102,6 @@ const openPopup = (url, title) => {
   );
 };
 
-const persistSocialSession = async (payload) => {
-  const response = await fetch(`${getApiBaseUrl()}/auth/social-session`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(payload),
-  });
-
-  if (!response.ok) {
-    throw new Error("Unable to persist social session");
-  }
-
-  const data = await response.json();
-
-  return data.session;
-};
-
 export const useSocialAuth = () => {
   const [session, setSession] = useState(null);
   const [error, setError] = useState("");
@@ -183,6 +163,7 @@ export const useSocialAuth = () => {
     try {
       const state = createRandomString(32);
       const codeVerifier = createRandomString(96);
+      saveVkAuthChallenge({ codeVerifier, state });
 
       VKID.Config.init({
         app: Number(appId),
@@ -226,10 +207,12 @@ export const useSocialAuth = () => {
       });
 
       floatingOneTap.close();
+      clearVkAuthChallenge();
       saveAuthSession(nextSession);
       setSession(nextSession);
     } catch (authError) {
       console.error(authError);
+      clearVkAuthChallenge();
       setError("Не удалось завершить авторизацию VK.");
     } finally {
       setIsAuthorizing(false);
