@@ -1,0 +1,16 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Trigger Portainer webhook
+        run: |
+          curl -kfsS -X POST "https://194.67.99.208:9443/api/stacks/webhooks/c3712130-3c65-49cd-8bbd-6e72a907c409"
