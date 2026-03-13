@@ -8,13 +8,23 @@ const normalizeBaseUrl = (url) => {
   return url.replace(/\/$/, "");
 };
 
-export const getAuthBaseUrl = () => {
-  if (process.env.NEXT_PUBLIC_APP_URL) {
-    return normalizeBaseUrl(process.env.NEXT_PUBLIC_APP_URL);
+const getBrowserOrigin = () => {
+  if (!isBrowser()) {
+    return "";
   }
 
-  if (isBrowser()) {
-    return normalizeBaseUrl(window.location.origin);
+  return normalizeBaseUrl(window.location.origin);
+};
+
+export const getAuthBaseUrl = () => {
+  const browserOrigin = getBrowserOrigin();
+
+  if (browserOrigin) {
+    return browserOrigin;
+  }
+
+  if (process.env.NEXT_PUBLIC_APP_URL) {
+    return normalizeBaseUrl(process.env.NEXT_PUBLIC_APP_URL);
   }
 
   return "http://localhost:3000";
@@ -29,10 +39,18 @@ export const getApiBaseUrl = () => {
 };
 
 export const getVkRedirectUrl = () => {
+  if (process.env.NEXT_PUBLIC_VK_REDIRECT_URL) {
+    return normalizeBaseUrl(process.env.NEXT_PUBLIC_VK_REDIRECT_URL);
+  }
+
   return `${getAuthBaseUrl()}/`;
 };
 
 export const getYandexRedirectUrl = () => {
+  if (process.env.NEXT_PUBLIC_YANDEX_REDIRECT_URL) {
+    return normalizeBaseUrl(process.env.NEXT_PUBLIC_YANDEX_REDIRECT_URL);
+  }
+
   return `${getAuthBaseUrl()}/auth/yandex/token`;
 };
 
