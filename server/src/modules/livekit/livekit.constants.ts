@@ -1,0 +1,2 @@
+export const LIVEKIT_CONFIG = Symbol('LIVEKIT_CONFIG');
+export const LIVEKIT_CONFIG_PROVIDER = Symbol('LIVEKIT_CONFIG_PROVIDER');
