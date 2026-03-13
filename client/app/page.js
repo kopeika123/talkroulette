@@ -8,6 +8,7 @@ import { useSocialAuth } from "../hooks/useSocialAuth";
 const HomePage = () => {
   const auth = useSocialAuth();
 
+
   return (
     <>
       <AuthStatusBar onSignOut={auth.actions.signOut} session={auth.session} />
