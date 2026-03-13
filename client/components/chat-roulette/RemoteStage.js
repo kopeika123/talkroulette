@@ -17,6 +17,8 @@ export const RemoteStage = ({
   remoteStageRef,
   videoRef,
 }) => {
+  const onlineCountLabel = new Intl.NumberFormat("ru-RU").format(onlineCount);
+
   return (
     <section className="remote-stage" ref={remoteStageRef}>
       <video
@@ -41,7 +43,7 @@ export const RemoteStage = ({
         )}
       </div>
 
-      <div className="online-pill">{onlineCount.toLocaleString()} online</div>
+      <div className="online-pill">{onlineCountLabel} online</div>
     </section>
   );
 };
