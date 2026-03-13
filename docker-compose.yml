@@ -48,8 +48,8 @@ services:
         NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL:-https://talkroulette.ru}
         NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-https://talkroulette.ru/api}
         NEXT_PUBLIC_LIVEKIT_URL: ${NEXT_PUBLIC_LIVEKIT_URL:-wss://rtc.talkroulette.ru}
-        NEXT_PUBLIC_VK_APP_ID: ${NEXT_PUBLIC_VK_APP_ID:-}
-        NEXT_PUBLIC_YANDEX_CLIENT_ID: ${NEXT_PUBLIC_YANDEX_CLIENT_ID:-}
+        NEXT_PUBLIC_VK_APP_ID: ${NEXT_PUBLIC_VK_APP_ID}
+        NEXT_PUBLIC_YANDEX_CLIENT_ID: ${NEXT_PUBLIC_YANDEX_CLIENT_ID}
     container_name: videochat-client
     restart: unless-stopped
     depends_on:
@@ -60,8 +60,8 @@ services:
       NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL:-https://talkroulette.ru}
       NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-https://talkroulette.ru/api}
       NEXT_PUBLIC_LIVEKIT_URL: ${NEXT_PUBLIC_LIVEKIT_URL:-wss://rtc.talkroulette.ru}
-      NEXT_PUBLIC_VK_APP_ID: ${NEXT_PUBLIC_VK_APP_ID:-}
-      NEXT_PUBLIC_YANDEX_CLIENT_ID: ${NEXT_PUBLIC_YANDEX_CLIENT_ID:-}
+      NEXT_PUBLIC_VK_APP_ID: ${NEXT_PUBLIC_VK_APP_ID}
+      NEXT_PUBLIC_YANDEX_CLIENT_ID: ${NEXT_PUBLIC_YANDEX_CLIENT_ID}
     ports:
       - "${CLIENT_PORT:-3000}:3000"
 
