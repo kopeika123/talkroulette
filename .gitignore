@@ -11,10 +11,12 @@ client/.next/
 client/.turbo/
 client/node_modules/
 client/.env
+.env
 
 server/dist/
 server/node_modules/
 server/.turbo/
 server/.env
+server/.env.local
 
 *.log
